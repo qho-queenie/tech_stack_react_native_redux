@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-
-// import { Text } from 'react-native';
-// import firebase from 'firebase';
-// import { Button, Card, CardSection, Input, Spinner } from './common';
+import { ListView } from 'react-native';
+import ListItem from './ListItem';
 
 class LibraryList extends Component {
+  componentWillMount(){
+      const ds = new ListView.DataSource({
+        rowHasChanged: (r1, t2) => r1 !== r2
+      });
+
+      this.DataSource = ds.cloneWithRows(this.props.libraries);
+  }
+
+  renderRow(library){
+    //to return a single library's row with a component's particular instance
+    return <ListItem library={library} />;
+  }
+
   render() {
-      return;
+      console.log("boo", this.props);
+      return(
+        <ListView
+          dataSource={=this.dataSource}
+          renderRow={this.renderRow}
+        />
+      );
   }
 }
 
-const mapStateProps = state => {
-  console.log(state, "hi");
+const mapStateToProps = state => {
+  // console.log(state, "hi");
+  //this state.libraries already have some data in here from LibraryReducer.js
+  return {
+    dataToShow : state.libraries
+
+  };
 };
 
-export default connect()(LibraryList);
+export default connect(mapStateToProps)(LibraryList);
