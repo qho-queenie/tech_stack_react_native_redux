@@ -1,6 +1,5 @@
-# iOS Authentication  
+# iOS Tech Stack  
 
-#### Google Firebase  
 #### React-Native  
 
 ##### Queenie Ho  
